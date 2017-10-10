@@ -55,7 +55,7 @@ pattern of such abuse occurs in the area of products for individuals to
 use, which is precisely where it is most unacceptable.  Therefore, we
 have designed this version of the GPL to prohibit the practice for those
 products.  If such problems arise substantially in other domains, we
-stand ready to extend this provision to those domains in future versions
+stand ready to com.github.javaparser.extend this provision to those domains in future versions
 of the GPL, as needed to protect the freedom of users.
 
   Finally, every program is threatened constantly by software patents.
@@ -503,7 +503,7 @@ publicly available network server or other readily accessible means,
 then you must either (1) cause the Corresponding Source to be so
 available, or (2) arrange to deprive yourself of the benefit of the
 patent license for this particular work, or (3) arrange, in a manner
-consistent with the requirements of this License, to extend the patent
+consistent with the requirements of this License, to com.github.javaparser.extend the patent
 license to downstream recipients.  "Knowingly relying" means you have
 actual knowledge that, but for the patent license, your conveying the
 covered work in a country, or your recipient's use of the covered work

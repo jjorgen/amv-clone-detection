@@ -199,6 +199,12 @@ public abstract class Node implements Cloneable {
         return visitor.getSource();
     }
 
+    public List<Node> describeMethods() {
+        final MethodDescribeVisitor visitor = new MethodDescribeVisitor();
+        accept(visitor, null);
+        return visitor.getNodes();
+    }
+
     public final String toStringWithoutComments() {
         final DumpVisitor visitor = new DumpVisitor(false);
         accept(visitor, null);

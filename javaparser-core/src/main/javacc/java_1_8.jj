@@ -1431,7 +1431,7 @@ NodeList<ClassOrInterfaceType> ExtendsList(boolean isInterface):
    ( "," cit = AnnotatedClassOrInterfaceType() { ret.add(cit); extendsMoreThanOne = true; } )*
    {
       if (extendsMoreThanOne && !isInterface)
-         addProblem("A class cannot extend more than one other class");
+         addProblem("A class cannot com.github.javaparser.extend more than one other class");
    }
    { return ret; }
 }

@@ -917,9 +917,10 @@ public class DumpVisitor implements VoidVisitor<Object> {
 
 	@Override
 	public void visit(final MethodDeclaration n, final Object arg) {
-		printOrphanCommentsBeforeThisChildNode(n);
-
-		printJavaComment(n.getComment(), arg);
+		if (printComments) {
+			printOrphanCommentsBeforeThisChildNode(n);
+			printJavaComment(n.getComment(), arg);
+		}
 		printMemberAnnotations(n.getAnnotations(), arg);
 		printModifiers(n.getModifiers());
 		if (n.isDefault()) {

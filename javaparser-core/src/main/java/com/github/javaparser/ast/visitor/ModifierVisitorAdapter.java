@@ -39,7 +39,7 @@ import static com.github.javaparser.utils.Utils.option;
 
 /**
  * This visitor adapter can be used to save time when some specific nodes needs
- * to be changed. To do that just extend this class and override the methods
+ * to be changed. To do that just com.github.javaparser.extend this class and override the methods
  * from the nodes who needs to be changed, returning the changed node.
  * 
  * @author Julio Vilmar Gesser

@@ -27,6 +27,7 @@ import com.github.javaparser.ast.comments.Comment;
 import com.github.javaparser.ast.comments.JavadocComment;
 import com.github.javaparser.ast.imports.*;
 import com.github.javaparser.ast.visitor.GenericVisitor;
+import com.github.javaparser.ast.visitor.MethodDescribeVisitor;
 import com.github.javaparser.ast.visitor.VoidVisitor;
 import com.github.javaparser.utils.ClassUtils;
 
