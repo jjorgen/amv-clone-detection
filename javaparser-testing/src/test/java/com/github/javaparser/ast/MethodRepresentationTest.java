@@ -12,7 +12,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class MethodRepresentationTest {
 
-    private static final String COMPILATION_UNIT = "C:/WS_NSU/amv/src/main/java/CH/ifa/draw/util/UndoRedoActivity.java";
+
+    private static final String COMPILATION_UNIT = "C:/WS_AMV/amv/src/main/java/CH/ifa/draw/util/UndoRedoActivity.java";
     private CompilationUnitWrapper compilationUnitWrapper;
     private List<String> methodTokens;
 
