@@ -16,7 +16,7 @@ import static com.github.javaparser.junit.wiki_samples.removenode.GitHubTest.get
 public class MethodDescribeVisitorTest {
 
     @Test
-    @Ignore
+//    @Ignore
     public void describeMethodsTest() throws Exception {
         CompilationUnit compilationUnitWithThreePublicMethods = getCompilationUnitWithThreePublicMethods();
         List<Node> nodeList = compilationUnitWithThreePublicMethods.describeMethods();

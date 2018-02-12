@@ -7,7 +7,9 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.Parameter;
-import com.github.javaparser.ast.stmt.BlockStmt;
+import com.github.javaparser.ast.expr.Expression;
+import com.github.javaparser.ast.expr.VariableDeclarationExpr;
+import com.github.javaparser.ast.stmt.*;
 import com.github.javaparser.ast.type.ReferenceType;
 import com.github.javaparser.ast.visitor.EqualsVisitor;
 import org.junit.Ignore;
@@ -38,7 +40,7 @@ public class CompilationUnitPrintTest {
                 Optional<BlockStmt> body = methodDeclaration.getBody();
                 if (body.isPresent()) {
                     BlockStmt blockStmt = body.get();
-                    getBodyHierarchy(blockStmt);
+                    getBodyHierarchyForMethod(blockStmt);
                 }
             }
         }
@@ -51,16 +53,89 @@ public class CompilationUnitPrintTest {
             if (methodDeclaration.getDeclarationAsString().contains("substituteEntityKeywords")) {
                 List<Node> childrenNodes1 = methodDeclaration.getChildrenNodes();
                 System.out.println(methodDeclaration.getDeclarationAsString());
+
+                // Get the body of the method declaration. This should then be the method body.
                 Optional<BlockStmt> body = methodDeclaration.getBody();
+
+                // If there is a body for this method declaration then explore this further.
                 if (body.isPresent()) {
+
+                    // Get the block statement of the body which should contain the individual
+                    // statements within the body.
                     BlockStmt blockStmt = body.get();
-                    getBodyHierarchy(blockStmt);
+
+                    // Explore further the individual statements within the method body.
+                    getBodyHierarchyForMethod(blockStmt);
                 }
             }
         }
     }
 
+    @Test
+    public void printLeafNodesForMethodRecursively() throws Exception {
+        List<MethodDeclaration> methodDeclarations = getCompilationUnitWithOneLargeMethod().getNodesByType(MethodDeclaration.class);
+        for (MethodDeclaration methodDeclaration : methodDeclarations) {
+            if (methodDeclaration.getDeclarationAsString().contains("substituteEntityKeywords")) {
+                List<Node> childrenNodes1 = methodDeclaration.getChildrenNodes();
+                System.out.println(methodDeclaration.getDeclarationAsString());
 
+                // Get the body of the method declaration. This should then be the method body.
+                Optional<BlockStmt> body = methodDeclaration.getBody();
+
+                // If there is a body for this method declaration then explore this further.
+                if (body.isPresent()) {
+
+                    // Get the block statement of the body which should contain the individual
+                    // statements within the body.
+                    BlockStmt blockStmt = body.get();
+
+                    // Explore further the individual statements within the method body.
+                    printBodyHierarchyForMethod(blockStmt);
+                }
+            }
+        }
+    }
+
+    /**
+     * This method explores the individual statements within the method body. This method is a
+     * recursive method which I have written to print the body contents of a method.
+     *
+     * @param node  contains the individual statements in the method body if the method
+     *                   body is present for the method.
+     */
+    private void printBodyHierarchyForMethod(Node node) {
+        if (node instanceof BlockStmt) {
+            NodeList<Statement> statements = ((BlockStmt) node).getStmts();
+            for (Statement statement : statements) {
+                if (statement instanceof ExpressionStmt) {
+                    System.out.println(statement);
+                } else if (statement instanceof TypeDeclarationStmt) {
+                    System.out.println(statement);
+                } else if (statement instanceof BreakStmt) {
+                    System.out.println(statement);
+                } else if (statement instanceof ThrowStmt) {
+                    System.out.println(statement);
+                } else if (statement instanceof ContinueStmt) {
+                    System.out.println(statement);
+                } else if (statement instanceof ReturnStmt) {
+                    System.out.println(statement);
+                } else if (statement instanceof TryStmt) {
+//                    System.out.println(statement);       PRINTS OUT EVERYTHING
+                    System.out.println("TryStmt");
+                    printBodyHierarchyForMethod(((TryStmt) statement).getTryBlock());
+                } else if (statement instanceof BlockStmt) {
+                    System.out.println("Recursive call");
+                    printBodyHierarchyForMethod(statement);
+                } else if (statement instanceof WhileStmt) {
+                    System.out.println("WhileStmt");
+                    printBodyHierarchyForMethod(((BlockStmt) ((WhileStmt) statement).getBody()));
+                } else if (statement instanceof IfStmt) {
+                    System.out.println("IfStmt");
+                    printBodyHierarchyForMethod((BlockStmt) ((IfStmt) statement).getThenStmt());
+                }
+            }
+        }
+    }
 
     @Test
     public void getMethodRepresentation() throws Exception {
@@ -134,16 +209,26 @@ public class CompilationUnitPrintTest {
         assertTrue(equals);
     }
 
-    private void getBodyHierarchy(Node node) {
-        List<Node> childrenNodes = node.getChildrenNodes();
+    /**
+     * This method explores the individual statements within the method body. This method is a
+     * recursive method which I have written to print the body contents of a method.
+     *
+     * @param blockStmt  contains the individual statements in the method body if the method
+     *                   body is present for the method.
+     */
+    private void getBodyHierarchyForMethod(Node blockStmt) {
+        List<Node> childrenNodes = blockStmt.getChildrenNodes();
 
+        /*
+         * The block statement
+         */
         if (!childrenNodes.isEmpty()) {
-            System.out.println(node.toString());
-            System.out.println("*** " + node.getClass().getName());
+            System.out.println(blockStmt.toString());
+            System.out.println("*** " + blockStmt.getClass().getName());
             return;
         } else {
             for (Node childNode : childrenNodes) {
-                getBodyHierarchy(childNode);
+                getBodyHierarchyForMethod(childNode);
             }
         }
     }
@@ -218,7 +303,7 @@ public class CompilationUnitPrintTest {
     }
 
     public Node getCompilationUnitWithOneLargeMethod() throws IOException {
-        FileInputStream in = new FileInputStream("C:\\WS\\javaparser\\javaparser-testing\\src\\test\\resources\\extension\\HTMLTextAreaFigureTestClass.java");
+        FileInputStream in = new FileInputStream("C:\\WS_AMV2\\javaparser\\javaparser-testing\\src\\test\\resources\\extension\\HTMLTextAreaFigureTestClass.java");
         return getCompilationUnit(in);
     }
 

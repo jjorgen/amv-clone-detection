@@ -15,7 +15,7 @@ public class CompilationUnitWrapperOrig {
     private CompilationUnit compilationUnit;
 
     public CompilationUnitWrapperOrig(String fileName) throws Exception {
-        FileInputStream in = new FileInputStream("C:/WS_NSU/amv/src/main/java/CH/ifa/draw/contrib/dnd/DNDFigures.java");
+        FileInputStream in = new FileInputStream("C:\\work\\0_NSU\\CH\\ifa\\draw\\contrib\\dnd/DNDFigures.java");
         try {
             // parse the file
             compilationUnit = JavaParser.parse(in);

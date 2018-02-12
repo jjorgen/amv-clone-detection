@@ -8,7 +8,7 @@ public class CompilationUnitWrapperOrigTest {
 
     CompilationUnitWrapperOrig compilationUnitWrapperOrig;
 
-    private String FILE_TO_PRINT = "C:/WS_NSU/amv/src/main/java/CH/ifa/draw/contrib/dnd/DNDFigures.java";
+    private String FILE_TO_PRINT = "C:/work/0_NSU/CH/ifa/draw/contrib/dnd/DNDFigures.java";
 
     @Before
     public void setUp() throws Exception {
