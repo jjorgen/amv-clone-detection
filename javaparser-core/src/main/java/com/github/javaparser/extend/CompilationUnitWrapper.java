@@ -3,13 +3,17 @@ package com.github.javaparser.extend;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.MethodRepresentation;
+import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.stmt.*;
 import com.github.javaparser.ast.visitor.MethodDescribeVisitor;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CompilationUnitWrapper {
     private CompilationUnit compilationUnit;
@@ -106,4 +110,83 @@ public class CompilationUnitWrapper {
     }
 
 
+    public List<String> getNamesOfMethodsCalledFromMethod(String methodName) {
+        List<String> calledMethods = new ArrayList<>();
+        CompilationUnit compilationUnit = null;
+        try {
+            compilationUnit = getCompilationUnit(this.filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        List<MethodDeclaration> methodDeclarations = compilationUnit.getNodesByType(MethodDeclaration.class);
+        for (MethodDeclaration methodDeclaration : methodDeclarations) {
+            if (methodDeclaration.getDeclarationAsString().contains("substituteEntityKeywords")) {
+                List<Node> childrenNodes1 = methodDeclaration.getChildrenNodes();
+                System.out.println(methodDeclaration.getDeclarationAsString());
+
+                // Get the body of the method declaration. This should then be the method body.
+                Optional<BlockStmt> body = methodDeclaration.getBody();
+
+                // If there is a body for this method declaration then explore this further.
+                if (body.isPresent()) {
+
+                    // Get the block statement of the body which should contain the individual
+                    // statements within the body.
+                    BlockStmt blockStmt = body.get();
+
+                    // Explore further the individual statements within the method body.
+
+                    extractCalledMethods(blockStmt, calledMethods);
+                }
+            }
+        }
+        return calledMethods;
+    }
+
+    /**
+     * This method explores the individual statements within the method body. This method is a
+     * recursive method which I have written to print the body contents of a method.
+     *
+     * @param node  contains the individual statements in the method body if the method
+     *                   body is present for the method.
+     */
+    private void extractCalledMethods(Node node, List<String> calledMethods) {
+        if (node instanceof BlockStmt) {
+            NodeList<Statement> statements = ((BlockStmt) node).getStmts();
+            for (Statement statement : statements) {
+                if (statement instanceof ExpressionStmt) {
+                    System.out.println("*** Expression statement ***   : "  + statement);
+                    System.out.println(statement);
+                    extractCalledMethodFromStatement(statement, calledMethods);
+                } else if (statement instanceof TypeDeclarationStmt) {
+                    System.out.println(statement);
+                } else if (statement instanceof BreakStmt) {
+                    System.out.println(statement);
+                } else if (statement instanceof ThrowStmt) {
+                    System.out.println(statement);
+                } else if (statement instanceof ContinueStmt) {
+                    System.out.println(statement);
+                } else if (statement instanceof ReturnStmt) {
+                    System.out.println(statement);
+                } else if (statement instanceof TryStmt) {
+//                    System.out.println(statement);       PRINTS OUT EVERYTHING
+                    System.out.println("TryStmt");
+                    extractCalledMethods(((TryStmt) statement).getTryBlock(), calledMethods);
+                } else if (statement instanceof BlockStmt) {
+                    System.out.println("Recursive call");
+                    extractCalledMethods(statement, calledMethods);
+                } else if (statement instanceof WhileStmt) {
+                    System.out.println("WhileStmt");
+                    extractCalledMethods(((BlockStmt) ((WhileStmt) statement).getBody()), calledMethods);
+                } else if (statement instanceof IfStmt) {
+                    System.out.println("IfStmt");
+                    extractCalledMethods((BlockStmt) ((IfStmt) statement).getThenStmt(), calledMethods);
+                }
+            }
+        }
+    }
+
+    private void extractCalledMethodFromStatement(Statement statement, List<String> calledMethods) {
+        calledMethods.add(statement.toString());
+    }
 }

@@ -7,11 +7,10 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.Parameter;
-import com.github.javaparser.ast.expr.Expression;
-import com.github.javaparser.ast.expr.VariableDeclarationExpr;
 import com.github.javaparser.ast.stmt.*;
 import com.github.javaparser.ast.type.ReferenceType;
 import com.github.javaparser.ast.visitor.EqualsVisitor;
+import com.github.javaparser.extend.CompilationUnitWrapper;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -31,69 +30,72 @@ public class CompilationUnitPrintTest {
     private Node compilationUnitWithALrgeMethodBody;
 
     @Test
-    public void parseMethodWithLargeBodyTest() throws Exception {
-        List<MethodDeclaration> methodDeclarations = getCompilationUnitWithLargeMethodBody().getNodesByType(MethodDeclaration.class);
-        for (MethodDeclaration methodDeclaration : methodDeclarations) {
-            if (methodDeclaration.getDeclarationAsString().contains("substituteEntityKeywords")) {
-                List<Node> childrenNodes1 = methodDeclaration.getChildrenNodes();
-                System.out.println(methodDeclaration.getDeclarationAsString());
-                Optional<BlockStmt> body = methodDeclaration.getBody();
-                if (body.isPresent()) {
-                    BlockStmt blockStmt = body.get();
-                    getBodyHierarchyForMethod(blockStmt);
-                }
-            }
+    public void getNamesOfMethodsCalledFromMethod() throws Exception {
+        final String PATH_TO_FILE = "C:\\WS_AMV2\\javaparser\\javaparser-testing\\src\\test\\resources\\extension\\HTMLTextAreaFigureTestClass.java";
+        CompilationUnitWrapper compilationUnitWrapper = new CompilationUnitWrapper(PATH_TO_FILE );
+        List<String> calledMethods = compilationUnitWrapper.getNamesOfMethodsCalledFromMethod("substituteEntityKeywords");
+        System.out.println("***********************");
+        System.out.println("***********************");
+        System.out.println("***********************");
+        System.out.println("***********************");
+        for (String method : calledMethods) {
+            System.out.println(method);
         }
+//        System.out.println(calledMethods);
+
+
+
+//        List<MethodDeclaration> methodDeclarations = getCompilationUnitWithOneLargeMethod().getNodesByType(MethodDeclaration.class);
+//        for (MethodDeclaration methodDeclaration : methodDeclarations) {
+//            if (methodDeclaration.getDeclarationAsString().contains("substituteEntityKeywords")) {
+//                List<Node> childrenNodes1 = methodDeclaration.getChildrenNodes();
+//                System.out.println(methodDeclaration.getDeclarationAsString());
+//
+//                // Get the body of the method declaration. This should then be the method body.
+//                Optional<BlockStmt> body = methodDeclaration.getBody();
+//
+//                // If there is a body for this method declaration then explore this further.
+//                if (body.isPresent()) {
+//
+//                    // Get the block statement of the body which should contain the individual
+//                    // statements within the body.
+//                    BlockStmt blockStmt = body.get();
+//
+//                    // Explore further the individual statements within the method body.
+//                    printBodyHierarchyForMethod(blockStmt);
+//                }
+//            }
+//        }
     }
 
-    @Test
-    public void parseMethodWithOneLargeMethodTest() throws Exception {
-        List<MethodDeclaration> methodDeclarations = getCompilationUnitWithOneLargeMethod().getNodesByType(MethodDeclaration.class);
-        for (MethodDeclaration methodDeclaration : methodDeclarations) {
-            if (methodDeclaration.getDeclarationAsString().contains("substituteEntityKeywords")) {
-                List<Node> childrenNodes1 = methodDeclaration.getChildrenNodes();
-                System.out.println(methodDeclaration.getDeclarationAsString());
-
-                // Get the body of the method declaration. This should then be the method body.
-                Optional<BlockStmt> body = methodDeclaration.getBody();
-
-                // If there is a body for this method declaration then explore this further.
-                if (body.isPresent()) {
-
-                    // Get the block statement of the body which should contain the individual
-                    // statements within the body.
-                    BlockStmt blockStmt = body.get();
-
-                    // Explore further the individual statements within the method body.
-                    getBodyHierarchyForMethod(blockStmt);
-                }
-            }
-        }
-    }
 
     @Test
     public void printLeafNodesForMethodRecursively() throws Exception {
-        List<MethodDeclaration> methodDeclarations = getCompilationUnitWithOneLargeMethod().getNodesByType(MethodDeclaration.class);
-        for (MethodDeclaration methodDeclaration : methodDeclarations) {
-            if (methodDeclaration.getDeclarationAsString().contains("substituteEntityKeywords")) {
-                List<Node> childrenNodes1 = methodDeclaration.getChildrenNodes();
-                System.out.println(methodDeclaration.getDeclarationAsString());
+//        final String PATH_TO_FILE = "C:\\WS_AMV2\\javaparser\\javaparser-testing\\src\\test\\resources\\extension\\HTMLTextAreaFigureTestClass.java";
+//        CompilationUnitWrapper compilationUnitWrapper = new CompilationUnitWrapper(PATH_TO_FILE );
+//        compilationUnitWrapper.getNamesOfMethodsCalledFromMethod("substituteEntityKeywords");
 
-                // Get the body of the method declaration. This should then be the method body.
-                Optional<BlockStmt> body = methodDeclaration.getBody();
-
-                // If there is a body for this method declaration then explore this further.
-                if (body.isPresent()) {
-
-                    // Get the block statement of the body which should contain the individual
-                    // statements within the body.
-                    BlockStmt blockStmt = body.get();
-
-                    // Explore further the individual statements within the method body.
-                    printBodyHierarchyForMethod(blockStmt);
-                }
-            }
-        }
+//        List<MethodDeclaration> methodDeclarations = getCompilationUnitWithOneLargeMethod().getNodesByType(MethodDeclaration.class);
+//        for (MethodDeclaration methodDeclaration : methodDeclarations) {
+//            if (methodDeclaration.getDeclarationAsString().contains("substituteEntityKeywords")) {
+//                List<Node> childrenNodes1 = methodDeclaration.getChildrenNodes();
+//                System.out.println(methodDeclaration.getDeclarationAsString());
+//
+//                // Get the body of the method declaration. This should then be the method body.
+//                Optional<BlockStmt> body = methodDeclaration.getBody();
+//
+//                // If there is a body for this method declaration then explore this further.
+//                if (body.isPresent()) {
+//
+//                    // Get the block statement of the body which should contain the individual
+//                    // statements within the body.
+//                    BlockStmt blockStmt = body.get();
+//
+//                    // Explore further the individual statements within the method body.
+//                    printBodyHierarchyForMethod(blockStmt);
+//                }
+//            }
+//        }
     }
 
     /**
@@ -132,6 +134,47 @@ public class CompilationUnitPrintTest {
                 } else if (statement instanceof IfStmt) {
                     System.out.println("IfStmt");
                     printBodyHierarchyForMethod((BlockStmt) ((IfStmt) statement).getThenStmt());
+                }
+            }
+        }
+    }
+
+    @Test
+    public void parseMethodWithLargeBodyTest() throws Exception {
+        List<MethodDeclaration> methodDeclarations = getCompilationUnitWithLargeMethodBody().getNodesByType(MethodDeclaration.class);
+        for (MethodDeclaration methodDeclaration : methodDeclarations) {
+            if (methodDeclaration.getDeclarationAsString().contains("substituteEntityKeywords")) {
+                List<Node> childrenNodes1 = methodDeclaration.getChildrenNodes();
+                System.out.println(methodDeclaration.getDeclarationAsString());
+                Optional<BlockStmt> body = methodDeclaration.getBody();
+                if (body.isPresent()) {
+                    BlockStmt blockStmt = body.get();
+                    getBodyHierarchyForMethod(blockStmt);
+                }
+            }
+        }
+    }
+
+    @Test
+    public void parseMethodWithOneLargeMethodTest() throws Exception {
+        List<MethodDeclaration> methodDeclarations = getCompilationUnitWithOneLargeMethod().getNodesByType(MethodDeclaration.class);
+        for (MethodDeclaration methodDeclaration : methodDeclarations) {
+            if (methodDeclaration.getDeclarationAsString().contains("substituteEntityKeywords")) {
+                List<Node> childrenNodes1 = methodDeclaration.getChildrenNodes();
+                System.out.println(methodDeclaration.getDeclarationAsString());
+
+                // Get the body of the method declaration. This should then be the method body.
+                Optional<BlockStmt> body = methodDeclaration.getBody();
+
+                // If there is a body for this method declaration then explore this further.
+                if (body.isPresent()) {
+
+                    // Get the block statement of the body which should contain the individual
+                    // statements within the body.
+                    BlockStmt blockStmt = body.get();
+
+                    // Explore further the individual statements within the method body.
+                    getBodyHierarchyForMethod(blockStmt);
                 }
             }
         }
