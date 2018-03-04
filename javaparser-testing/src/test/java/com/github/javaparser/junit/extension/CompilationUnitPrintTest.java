@@ -33,109 +33,13 @@ public class CompilationUnitPrintTest {
     public void getNamesOfMethodsCalledFromMethod() throws Exception {
         final String PATH_TO_FILE = "C:\\WS_AMV2\\javaparser\\javaparser-testing\\src\\test\\resources\\extension\\HTMLTextAreaFigureTestClass.java";
         CompilationUnitWrapper compilationUnitWrapper = new CompilationUnitWrapper(PATH_TO_FILE );
-        List<String> calledMethods = compilationUnitWrapper.getNamesOfMethodsCalledFromMethod("substituteEntityKeywords");
+        List<Statement> calledMethods = compilationUnitWrapper.getNamesOfMethodsCalledFromMethod("substituteEntityKeywords", CompilationUnitWrapper.ALL_METHODS);
         System.out.println("***********************");
         System.out.println("***********************");
         System.out.println("***********************");
         System.out.println("***********************");
-        for (String method : calledMethods) {
-            System.out.println(method);
-        }
-//        System.out.println(calledMethods);
-
-
-
-//        List<MethodDeclaration> methodDeclarations = getCompilationUnitWithOneLargeMethod().getNodesByType(MethodDeclaration.class);
-//        for (MethodDeclaration methodDeclaration : methodDeclarations) {
-//            if (methodDeclaration.getDeclarationAsString().contains("substituteEntityKeywords")) {
-//                List<Node> childrenNodes1 = methodDeclaration.getChildrenNodes();
-//                System.out.println(methodDeclaration.getDeclarationAsString());
-//
-//                // Get the body of the method declaration. This should then be the method body.
-//                Optional<BlockStmt> body = methodDeclaration.getBody();
-//
-//                // If there is a body for this method declaration then explore this further.
-//                if (body.isPresent()) {
-//
-//                    // Get the block statement of the body which should contain the individual
-//                    // statements within the body.
-//                    BlockStmt blockStmt = body.get();
-//
-//                    // Explore further the individual statements within the method body.
-//                    printBodyHierarchyForMethod(blockStmt);
-//                }
-//            }
-//        }
-    }
-
-
-    @Test
-    public void printLeafNodesForMethodRecursively() throws Exception {
-//        final String PATH_TO_FILE = "C:\\WS_AMV2\\javaparser\\javaparser-testing\\src\\test\\resources\\extension\\HTMLTextAreaFigureTestClass.java";
-//        CompilationUnitWrapper compilationUnitWrapper = new CompilationUnitWrapper(PATH_TO_FILE );
-//        compilationUnitWrapper.getNamesOfMethodsCalledFromMethod("substituteEntityKeywords");
-
-//        List<MethodDeclaration> methodDeclarations = getCompilationUnitWithOneLargeMethod().getNodesByType(MethodDeclaration.class);
-//        for (MethodDeclaration methodDeclaration : methodDeclarations) {
-//            if (methodDeclaration.getDeclarationAsString().contains("substituteEntityKeywords")) {
-//                List<Node> childrenNodes1 = methodDeclaration.getChildrenNodes();
-//                System.out.println(methodDeclaration.getDeclarationAsString());
-//
-//                // Get the body of the method declaration. This should then be the method body.
-//                Optional<BlockStmt> body = methodDeclaration.getBody();
-//
-//                // If there is a body for this method declaration then explore this further.
-//                if (body.isPresent()) {
-//
-//                    // Get the block statement of the body which should contain the individual
-//                    // statements within the body.
-//                    BlockStmt blockStmt = body.get();
-//
-//                    // Explore further the individual statements within the method body.
-//                    printBodyHierarchyForMethod(blockStmt);
-//                }
-//            }
-//        }
-    }
-
-    /**
-     * This method explores the individual statements within the method body. This method is a
-     * recursive method which I have written to print the body contents of a method.
-     *
-     * @param node  contains the individual statements in the method body if the method
-     *                   body is present for the method.
-     */
-    private void printBodyHierarchyForMethod(Node node) {
-        if (node instanceof BlockStmt) {
-            NodeList<Statement> statements = ((BlockStmt) node).getStmts();
-            for (Statement statement : statements) {
-                if (statement instanceof ExpressionStmt) {
-                    System.out.println(statement);
-                } else if (statement instanceof TypeDeclarationStmt) {
-                    System.out.println(statement);
-                } else if (statement instanceof BreakStmt) {
-                    System.out.println(statement);
-                } else if (statement instanceof ThrowStmt) {
-                    System.out.println(statement);
-                } else if (statement instanceof ContinueStmt) {
-                    System.out.println(statement);
-                } else if (statement instanceof ReturnStmt) {
-                    System.out.println(statement);
-                } else if (statement instanceof TryStmt) {
-//                    System.out.println(statement);       PRINTS OUT EVERYTHING
-                    System.out.println("TryStmt");
-                    printBodyHierarchyForMethod(((TryStmt) statement).getTryBlock());
-                } else if (statement instanceof BlockStmt) {
-                    System.out.println("Recursive call");
-                    printBodyHierarchyForMethod(statement);
-                } else if (statement instanceof WhileStmt) {
-                    System.out.println("WhileStmt");
-                    printBodyHierarchyForMethod(((BlockStmt) ((WhileStmt) statement).getBody()));
-                } else if (statement instanceof IfStmt) {
-                    System.out.println("IfStmt");
-                    printBodyHierarchyForMethod((BlockStmt) ((IfStmt) statement).getThenStmt());
-                }
-            }
+        for (Statement statement : calledMethods) {
+            System.out.println(statement);
         }
     }
 
@@ -184,7 +88,6 @@ public class CompilationUnitPrintTest {
     public void getMethodRepresentation() throws Exception {
         CompilationUnit firstCompilationUnit = getCompilationUnitWithTwoPublicMethods();
         MethodDeclaration firstMethodDeclaration = getMethodByName(firstCompilationUnit, "getFigures");
-
     }
 
     @Test
