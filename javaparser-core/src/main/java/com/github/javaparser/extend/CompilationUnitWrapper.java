@@ -212,4 +212,42 @@ public class CompilationUnitWrapper {
     private void extractCalledMethodFromStatement(Statement statement, List<Statement> calledMethods) {
         calledMethods.add(statement);
     }
+
+    public String getNameOfLastMethodCalledFromMethod(String writeStorable) {
+        List<Statement> calledMethods = getNamesOfMethodsCalledFromMethod("writeStorable",
+                CompilationUnitWrapper.METHOD_AT_END);
+
+        if (calledMethods.size() == 0) {
+            return new String();
+        }
+        return getMethodNameAsStringFor(calledMethods.get(calledMethods.size() - 1));
+    }
+
+    private static String getMethodNameAsStringFor(Statement statement) {
+        String statementAsString = statement.toString().replaceAll(" ","");
+        System.out.println("statementAsString: "  + statementAsString);
+
+        if (statementAsString.startsWith("//")) {
+            return new String();
+        } else {
+            int periodPos = statementAsString.lastIndexOf(".");
+//            int periodPos = statementAsString.indexOf(".");
+            if (!(periodPos > 0)) {
+                return new String();
+            } else {
+                if (periodPos == statementAsString.length()) {
+                    new String();
+                } else {
+                    String methodString = statementAsString.substring(periodPos + 1, statementAsString.length() - 1);
+                    if (!methodString.contains("(")) {
+                        new String();
+                    } else {
+                        int parenthesesPos = methodString.indexOf("(");
+                        return methodString.substring(0, parenthesesPos);
+                    }
+                }
+            }
+        }
+        return new String();
+    }
 }

@@ -30,10 +30,31 @@ public class CompilationUnitPrintTest {
     private Node compilationUnitWithALrgeMethodBody;
 
     @Test
-    public void getNamesOfMethodsCalledFromMethod() throws Exception {
+    public void getNameOfMethodsCalledFromMethod_when_no_method_at_end() throws Exception {
+        final String PATH_TO_FILE = "C:\\work\\0_NSU\\CH\\ifa\\draw\\util\\StorableOutput.java";
+        CompilationUnitWrapper compilationUnitWrapper = new CompilationUnitWrapper(PATH_TO_FILE );
+        String methodName = compilationUnitWrapper.getNameOfLastMethodCalledFromMethod("writeStorable");
+        System.out.println("methodName: " + methodName);
+    }
+
+    @Test
+    public void getNamesOfMethodsCalledFromMethod_method_at_end() throws Exception {
+        final String PATH_TO_FILE = "C:\\work\\0_NSU\\CH\\ifa\\draw\\util\\StorableOutput.java";
+        CompilationUnitWrapper compilationUnitWrapper = new CompilationUnitWrapper(PATH_TO_FILE );
+        List<Statement> calledMethods = compilationUnitWrapper.getNamesOfMethodsCalledFromMethod("writeStorable",
+                CompilationUnitWrapper.METHOD_AT_END);
+        for (Statement statement : calledMethods) {
+            String methodNameAsString = getMethodNameAsStringFor(statement);
+            System.out.println("Method name as string: " + methodNameAsString );
+        }
+    }
+
+    @Test
+    public void getNamesOfMethodsCalledFromMethod_all_methods() throws Exception {
         final String PATH_TO_FILE = "C:\\WS_AMV2\\javaparser\\javaparser-testing\\src\\test\\resources\\extension\\HTMLTextAreaFigureTestClass.java";
         CompilationUnitWrapper compilationUnitWrapper = new CompilationUnitWrapper(PATH_TO_FILE );
-        List<Statement> calledMethods = compilationUnitWrapper.getNamesOfMethodsCalledFromMethod("substituteEntityKeywords", CompilationUnitWrapper.ALL_METHODS);
+        List<Statement> calledMethods = compilationUnitWrapper.getNamesOfMethodsCalledFromMethod("substituteEntityKeywords",
+                                                                                                 CompilationUnitWrapper.ALL_METHODS);
         System.out.println("***********************");
         System.out.println("***********************");
         System.out.println("***********************");
@@ -288,6 +309,31 @@ public class CompilationUnitPrintTest {
             }
         }
         return null;
+    }
+
+    private static String getMethodNameAsStringFor(Statement statement) {
+        String statementAsString = statement.toString().replaceAll(" ","");
+        if (statementAsString.startsWith("//")) {
+            return "";
+        } else {
+            int periodPos = statementAsString.lastIndexOf(".");
+//            int periodPos = statementAsString.indexOf(".");
+            if (!(periodPos > 0)) {
+                return "";
+            } else {
+                if (periodPos == statementAsString.length()) {
+                    return "";
+                } else {
+                    String methodString = statementAsString.substring(periodPos + 1, statementAsString.length() - 1);
+                    if (!methodString.contains("(")) {
+                        return "";
+                    } else {
+                        int parenthesesPos = methodString.indexOf("(");
+                        return methodString.substring(0, parenthesesPos);
+                    }
+                }
+            }
+        }
     }
 
 }
