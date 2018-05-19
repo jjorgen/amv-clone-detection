@@ -17,8 +17,10 @@ public class SimpleMethodRepresentationTest {
 
     CompilationUnitWrapperOrig compilationUnitWithSimpleMethodToRepresent;
 
-    private String CLASS_WITH_SIMPLE_METHOD_TO_REPRESENT = "C:/WS_NSU/amv/src/main/java/CH/ifa/draw/contrib/dnd/DNDFigures.java";
-    private String CLASS_WITH_TWO_PUBLIC_METHODS = "C:\\WS_NSU\\amv\\src\\main\\java\\CH\\ifa\\draw\\contrib\\dnd\\DNDFigures.java";
+    private String CLASS_WITH_SIMPLE_METHOD_TO_REPRESENT = "C:/work/0_NSU/CH/ifa/draw/contrib/dnd/DNDFigures.java";
+//    private String CLASS_WITH_SIMPLE_METHOD_TO_REPRESENT = "C:/WS_NSU/amv/src/main/java/CH/ifa/draw/contrib/dnd/DNDFigures.java";
+//    private String CLASS_WITH_TWO_PUBLIC_METHODS = "C:\\WS_NSU\\amv\\src\\main\\java\\CH\\ifa\\draw\\contrib\\dnd\\DNDFigures.java";
+    private String CLASS_WITH_TWO_PUBLIC_METHODS = "C:/work/0_NSU/CH/ifa/draw/contrib/dnd/DNDFigures.java";
     private MethodDescribeVisitor methodDescribeVisitor = new MethodDescribeVisitor();
     private CompilationUnitWrapper compilationUnitWrapper;
 

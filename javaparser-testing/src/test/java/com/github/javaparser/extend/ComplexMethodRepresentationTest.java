@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 public class ComplexMethodRepresentationTest {
 
     public static final String METHOD_NAME = "substituteEntityKeywords";
-    private static String CLASS_WITH_ONE_LARGE_METHOD = "C:\\WS\\javaparser\\javaparser-testing\\src\\test\\resources\\extension\\HTMLTextAreaFigureTestClass.java";
+    private static String CLASS_WITH_ONE_LARGE_METHOD = "C:\\WS_AMV2\\javaparser\\javaparser-testing\\src\\test\\resources\\extension\\HTMLTextAreaFigureTestClass.java";
 
     private MethodDescribeVisitor methodDescribeVisitor = new MethodDescribeVisitor();
     private CompilationUnit compilationUnit;

@@ -30,6 +30,15 @@ public class CompilationUnitPrintTest {
     private Node compilationUnitWithALrgeMethodBody;
 
     @Test
+    public void getNameOfMethodsCalledFromMethod_when_method_at_end() throws Exception {
+        final String PATH_TO_FILE = "C:\\work\\0_NSU\\CH\\ifa\\draw\\contrib\\ComponentFigure.java";
+        CompilationUnitWrapper compilationUnitWrapper = new CompilationUnitWrapper(PATH_TO_FILE );
+        String methodName = compilationUnitWrapper.getNameOfLastMethodCalledFromMethod("draw");
+        System.out.println("methodName: " + methodName);
+    }
+
+
+    @Test
     public void getNameOfMethodsCalledFromMethod_when_no_method_at_end() throws Exception {
         final String PATH_TO_FILE = "C:\\work\\0_NSU\\CH\\ifa\\draw\\util\\StorableOutput.java";
         CompilationUnitWrapper compilationUnitWrapper = new CompilationUnitWrapper(PATH_TO_FILE );
@@ -249,23 +258,24 @@ public class CompilationUnitPrintTest {
     }
 
     public CompilationUnit getCompilationUnitWithTwoPublicMethods() throws Exception{
-        FileInputStream in = new FileInputStream("C:\\WS_NSU\\amv\\src\\main\\java\\CH\\ifa\\draw\\contrib\\dnd\\DNDFigures.java");
+        FileInputStream in = new FileInputStream("C:\\work\\0_NSU\\CH\\ifa\\draw\\contrib\\dnd\\DNDFigures.java");
         return getCompilationUnit(in);
     }
 
     public CompilationUnit getCompilationUnitWithThreePublicMethods() throws Exception{
-        FileInputStream in = new FileInputStream("C:\\WS_NSU\\amv\\src\\main\\java\\CH\\ifa\\draw\\contrib\\dnd\\DNDFiguresTransferable.java");
+        FileInputStream in = new FileInputStream("C:\\work\\0_NSU\\CH\\ifa\\draw\\contrib\\dnd\\DNDFiguresTransferable.java");
         return getCompilationUnit(in);
     }
 
     private CompilationUnit getCompilationUnitForClassWithManyMethods() throws Exception{
         System.out.println("HTMLTextAreaFigure.java");
-        FileInputStream in = new FileInputStream("C:\\WS_NSU\\amv\\src\\main\\java\\CH\\ifa\\draw\\contrib\\html\\HTMLTextAreaFigure.java");
+        FileInputStream in = new FileInputStream("C:\\work\\0_NSU\\CH\\ifa\\draw\\contrib\\html\\HTMLTextAreaFigure.java");
+
         return getCompilationUnit(in);
     }
 
     public Node getCompilationUnitWithLargeMethodBody() throws IOException {
-        FileInputStream in = new FileInputStream("C:\\WS_NSU\\amv\\src\\main\\java\\CH\\ifa\\draw\\contrib\\html\\HTMLTextAreaFigure.java");
+        FileInputStream in = new FileInputStream("C:\\work\\0_NSU\\CH\\ifa\\draw\\contrib\\html\\HTMLTextAreaFigure.java");
         return getCompilationUnit(in);
     }
 
@@ -275,7 +285,7 @@ public class CompilationUnitPrintTest {
     }
 
     public Node getCompilationUnitWithLargeMethodBodyClone() throws IOException {
-        FileInputStream in = new FileInputStream("C:\\WS_NSU\\amv\\src\\main\\java\\CH\\ifa\\draw\\contrib\\html\\HTMLTextAreaFigureClone.java");
+        FileInputStream in = new FileInputStream("C:\\work\\0_NSU\\CH\\ifa\\draw\\contrib\\html\\HTMLTextAreaFigureClone.java");
         return getCompilationUnit(in);
     }
 

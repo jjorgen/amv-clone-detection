@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class ComplexMethodDescribeTest {
 
-    private static String CLASS_WITH_ONE_LARGE_METHOD = "C:\\WS\\javaparser\\javaparser-testing\\src\\test\\resources\\extension\\HTMLTextAreaFigureTestClass.java";
+    private static String CLASS_WITH_ONE_LARGE_METHOD = "C:\\WS_AMV2\\javaparser\\javaparser-testing\\src\\test\\resources\\extension\\HTMLTextAreaFigureTestClass.java";
     private static CompilationUnit compilationUnit;
     private CompilationUnitWrapper compilationUnitWrapper;
 

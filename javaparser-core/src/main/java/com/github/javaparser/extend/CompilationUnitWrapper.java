@@ -213,8 +213,8 @@ public class CompilationUnitWrapper {
         calledMethods.add(statement);
     }
 
-    public String getNameOfLastMethodCalledFromMethod(String writeStorable) {
-        List<Statement> calledMethods = getNamesOfMethodsCalledFromMethod("writeStorable",
+    public String getNameOfLastMethodCalledFromMethod(String methodName) {
+        List<Statement> calledMethods = getNamesOfMethodsCalledFromMethod(methodName,
                 CompilationUnitWrapper.METHOD_AT_END);
 
         if (calledMethods.size() == 0) {
@@ -225,8 +225,6 @@ public class CompilationUnitWrapper {
 
     private static String getMethodNameAsStringFor(Statement statement) {
         String statementAsString = statement.toString().replaceAll(" ","");
-        System.out.println("statementAsString: "  + statementAsString);
-
         if (statementAsString.startsWith("//")) {
             return new String();
         } else {
