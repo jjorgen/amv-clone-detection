@@ -16,15 +16,14 @@ import static com.github.javaparser.junit.wiki_samples.removenode.GitHubTest.get
 public class MethodDescribeVisitorTest {
 
     @Test
-//    @Ignore
+    @Ignore
     public void describeMethodsTest() throws Exception {
         CompilationUnit compilationUnitWithThreePublicMethods = getCompilationUnitWithThreePublicMethods();
         List<Node> nodeList = compilationUnitWithThreePublicMethods.describeMethods();
     }
 
     public CompilationUnit getCompilationUnitWithThreePublicMethods() throws Exception{
-        FileInputStream in = new FileInputStream(
-                "C:\\WS_NSU\\amv\\src\\main\\java\\CH\\ifa\\draw\\contrib\\dnd\\DNDFiguresTransferable.java");
+        FileInputStream in = new FileInputStream("C:\\work\\0_NSU\\CH\\ifa\\draw\\contrib\\ComponentFigure.java");
         return getCompilationUnit(in);
     }
 

@@ -182,7 +182,7 @@ public class MethodDescribeVisitor  implements VoidVisitor<Object> {
     @Override
     public void visit(MethodDeclaration n, Object arg) {
         MethodRepresentation methodRepresentation =
-                new MethodRepresentation(filePath, compilationUnitWrapper.getClassName());
+                new MethodRepresentation(filePath, compilationUnitWrapper.getClassOrInterfaceName());
         methodRepresentation.setParameters(n.getParameters());
         methodRepresentation.setThrows(n.getThrows());
         methodRepresentation.setStringifiedWithoutComments(n.toStringWithoutComments());

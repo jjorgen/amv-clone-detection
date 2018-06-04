@@ -1,17 +1,23 @@
 package com.github.javaparser.extend;
 
+/**
+ * Created by jorgej2 on 5/19/2018.
+ */
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.MethodRepresentation;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.NodeList;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.body.TypeDeclaration;
 import com.github.javaparser.ast.stmt.*;
 import com.github.javaparser.ast.visitor.MethodDescribeVisitor;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +30,7 @@ public class CompilationUnitWrapper {
     private String filePath;
     private List<MethodRepresentation> methodRepresentations = new ArrayList<>();
     private String className;
+    private Object fullFileName;
 
     public CompilationUnitWrapper(String filePath) {
         validate(filePath);
@@ -101,7 +108,7 @@ public class CompilationUnitWrapper {
         return filePath;
     }
 
-    public String getClassName() {
+    public String getClassOrInterfaceName() {
         int lastDelimiterIndex = filePath.lastIndexOf("\\");
         if (lastDelimiterIndex  == -1) {
             lastDelimiterIndex = filePath.lastIndexOf("/");
@@ -247,5 +254,36 @@ public class CompilationUnitWrapper {
             }
         }
         return new String();
+    }
+
+    public boolean isInterface() {
+        for (final Iterator<TypeDeclaration<?>> i = compilationUnit.getTypes().iterator(); i.hasNext(); ) {
+            TypeDeclaration<?> typeDeclaration = i.next();
+            if (typeDeclaration instanceof ClassOrInterfaceDeclaration) {
+                ClassOrInterfaceDeclaration classOrInterfaceDeclaration = (ClassOrInterfaceDeclaration) typeDeclaration;
+                if (classOrInterfaceDeclaration.isInterface()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
+    public ArrayList<String> getMethodNames() {
+        ArrayList methodNames = new ArrayList<String>();
+        for (MethodRepresentation methodRepresentation : methodRepresentations) {
+            methodNames.add(methodRepresentation.getMethodName());
+        }
+        return methodNames;
+    }
+
+    public boolean containsMethod(String registerResource) {
+        return false;
+    }
+
+    public String getFullFileName() {
+        return filePath;
     }
 }

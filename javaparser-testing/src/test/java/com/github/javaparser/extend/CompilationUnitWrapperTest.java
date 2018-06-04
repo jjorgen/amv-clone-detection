@@ -2,7 +2,6 @@ package com.github.javaparser.extend;
 
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.MethodRepresentation;
-import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
@@ -44,7 +43,7 @@ public class CompilationUnitWrapperTest {
 
     @Test
     public void getValidJavaClassName() throws Exception {
-        String className = compilationUnitWrapper.getClassName();
+        String className = compilationUnitWrapper.getClassOrInterfaceName();
         assertTrue(className != null && className.trim().length() > 0);
     }
 }
